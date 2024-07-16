@@ -15,6 +15,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   List<dynamic> productList = [];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,6 +34,8 @@ class _ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -55,7 +58,7 @@ class _ProductListState extends State<ProductList> {
       body: GridView.builder(padding: EdgeInsets.all(Dim().d16),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisExtent: 230
+          mainAxisExtent: screenheight*0.32
         ),
         itemCount: productList.length,
         itemBuilder: (context, index) {
@@ -70,8 +73,8 @@ class _ProductListState extends State<ProductList> {
                 child: Column(children: [
                   Image.network(
                     productList[index]['thumbnail'],
-                    height: 100,
-                    width: 150,
+                    height: screenheight*0.15,
+                    width: screenwidth*0.30,
                   ),
                   SizedBox(height: 4,),
                   Center(child: Text(productList[index]['title'],style: Sty().microText.copyWith(fontWeight: FontWeight.bold))),
