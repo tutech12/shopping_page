@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:shopping/Static%20Methods/values/colors.dart';
 import 'package:shopping/Static%20Methods/values/dimens.dart';
 import 'package:shopping/Static%20Methods/values/styles.dart';
@@ -13,7 +14,10 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
+
   List<dynamic> productList = [];
+
+
 
 
   @override
@@ -36,6 +40,7 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -58,9 +63,10 @@ class _ProductListState extends State<ProductList> {
       body: GridView.builder(padding: EdgeInsets.all(Dim().d16),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisExtent: screenheight*0.32
+          mainAxisExtent: screenheight*rotate()
         ),
         itemCount: productList.length,
+        shrinkWrap:  true,
         itemBuilder: (context, index) {
          // print(productList[index]['id']);
           return InkWell(
@@ -85,10 +91,13 @@ class _ProductListState extends State<ProductList> {
                     maxLines: 1,
                     style: Sty().smallText.copyWith(fontSize: 13),
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(height: 8),
                   Row(children: [Text('Rs.${productList[index]['price'].toString()}'),
                   SizedBox(width: 10,),
-                  Text('${productList[index]['discountPercentage']}%',style: Sty().mediumBoldText,)],)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text('${productList[index]['discountPercentage']}%',style: Sty().mediumBoldText,),
+                  )],)
                 ]),
               ),
             ),
@@ -97,5 +106,14 @@ class _ProductListState extends State<ProductList> {
       ),
       backgroundColor: Clr().iconColor,
     );
+
+  }
+  double rotate(){
+    if (MediaQuery.of(context).orientation == Orientation.portrait){
+      return 0.32;
+    }else if(MediaQuery.of(context).orientation == Orientation.landscape){
+      return 0.48;
+    }
+    return 0.32;
   }
 }

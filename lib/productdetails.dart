@@ -56,101 +56,103 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
       body: Padding(
         padding: EdgeInsets.all(Dim().d16),
-        child: Column(
-          children: [
-            CarouselSlider.builder(
-              itemCount: img.length,
-              itemBuilder: (context, index, realIndex) {
-                return Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(img[index]),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                );
-              },
-              options: CarouselOptions(
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-                height: 200.0,
-                enlargeCenterPage: true,
-                autoPlay: false,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                viewportFraction: 1.0,
-              ),
-            ),
-            SizedBox(
-              height: Dim().d6,
-            ),
-            DotsIndicator(decorator: DotsDecorator(size: Size(Dim().d6, Dim().d6),activeSize:Size(Dim().d6, Dim().d6)),
-              dotsCount: img.length,
-              position: _currentIndex.toDouble(),
-            ),
-            Card(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text(alldata[widget.index]['title'],
-                      style: Sty()
-                          .largeText
-                          .copyWith(fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    alldata[widget.index]['description'],
-                    style:
-                        Sty().largeText.copyWith(fontWeight: FontWeight.normal),
-                  ),
-                  SizedBox(
-                    height: Dim().d12,
-                  ),
-                  Row(
-                    children: [
-                      Text('Rs.${alldata[widget.index]['price'].toString()}'),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '${alldata[widget.index]['discountPercentage']}%',
-                        style: Sty().mediumBoldText,
-                      )
-                    ],
-                  ),
-                  SizedBox(height: Dim().d8,),
-                  Container(padding: EdgeInsets.all(Dim().d2),
-                    width: 50,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CarouselSlider.builder(
+                itemCount: img.length,
+                itemBuilder: (context, index, realIndex) {
+                  return Container(
                     decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(2),
-                      color: Clr().green,
+                      image: DecorationImage(
+                        image: NetworkImage(img[index]),
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  );
+                },
+                options: CarouselOptions(
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  height: 200.0,
+                  enlargeCenterPage: true,
+                  autoPlay: false,
+                  aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  viewportFraction: 1.0,
+                ),
+              ),
+              SizedBox(
+                height: Dim().d6,
+              ),
+              DotsIndicator(decorator: DotsDecorator(size: Size(Dim().d6, Dim().d6),activeSize:Size(Dim().d6, Dim().d6)),
+                dotsCount: img.length,
+                position: _currentIndex.toDouble(),
+              ),
+              Card(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(alldata[widget.index]['title'],
+                        style: Sty()
+                            .largeText
+                            .copyWith(fontWeight: FontWeight.bold)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      alldata[widget.index]['description'],
+                      style:
+                          Sty().largeText.copyWith(fontWeight: FontWeight.normal),
+                    ),
+                    SizedBox(
+                      height: Dim().d12,
+                    ),
+                    Row(
                       children: [
-                        Text('${alldata[widget.index]['rating'].toString()}',
-                            style: Sty().smallText.copyWith(color: Clr().white),),
-                        Icon(Icons.star,color: Clr().white,size: 12,)
+                        Text('Rs.${alldata[widget.index]['price'].toString()}'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '${alldata[widget.index]['discountPercentage']}%',
+                          style: Sty().mediumBoldText,
+                        )
                       ],
                     ),
-                  ),
-                  SizedBox(height: Dim().d8,),
-                  Text('About Brand ${alldata[widget.index]['brand']}',)
-                ],
-              ),
-            ))
-          ],
+                    SizedBox(height: Dim().d8,),
+                    Container(padding: EdgeInsets.all(Dim().d2),
+                      width: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(2),
+                        color: Clr().green,
+                      ),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${alldata[widget.index]['rating'].toString()}',
+                              style: Sty().smallText.copyWith(color: Clr().white),),
+                          Icon(Icons.star,color: Clr().white,size: 12,)
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: Dim().d8,),
+                    Text('About Brand ${alldata[widget.index]['brand']}',)
+                  ],
+                ),
+              ))
+            ],
+          ),
         ),
       ),
     );
